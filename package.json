@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/andry-pebrianto/simple-anime-api/issues"
   },
-  "homepage": "https://github.com/andry-pebrianto/simple-anime-api#readme"
+  "homepage": "https://github.com/andry-pebrianto/simple-anime-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
