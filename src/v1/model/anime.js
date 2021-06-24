@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { db } = require('../config/database');
+const { db } = require('../config');
 
 let anime = db.define('anime', {
     id: { type: Sequelize.INTEGER, primaryKey: true },
