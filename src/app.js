@@ -1,11 +1,11 @@
 const express = require("express");
+const { animeRoutes } = require('./v1/routes');
 const chalk = require('chalk');
+
 const app = express();
 const port = 3000; // Port
 
-app.use("/", (req, res) => {
-    res.status(404).send("Server berjalan");
-});
+app.use("/v1/api/anime", animeRoutes);
 
 // Menjalankan server
 app.listen(port, () => {
