@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { animeController } = require('../controller');
 
-router.get("/", (req, res) => {
-    res.status(200).send('Anime Page');
-});
+router.get("/", animeController.getAllData);
 
 module.exports = router;
