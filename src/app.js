@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const chalk = require('chalk');
 
 const app = express();
-const port = 3000; // Port
+const port = 7000; // Port
 
 app.use(morgan("dev"));
 app.use(express.static("public")); // Menentukan tempat asset static

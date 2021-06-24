@@ -3,6 +3,7 @@ const { animeModel } = require('../model');
 const getAllData = async (req, res) => {
     try {
         let data = await animeModel.findAll({
+            attributes: ['title', 'synopsis', 'type', 'episodes', 'premiered', 'studios', 'genres', 'score', 'source', 'cover'],
             order: [['id', 'asc']],
         });
 
