@@ -10,7 +10,7 @@ const getAllData = async (req, res) => {
         // Jika data berhasil ditemukan
         if (data.length > 0) {
             res.status(200).json({
-                message: 'Data berhasil ditemukan',
+                message: 'Data berhasil ditemukan.',
                 status: 200,
                 data: data,
             })
@@ -19,7 +19,7 @@ const getAllData = async (req, res) => {
         // Jika data gagal ditemukan
         else {
             res.status(404).json({
-                message: 'Data gagal ditemukan',
+                message: 'Data gagal ditemukan.',
                 status: 404,
             })
         }
@@ -30,4 +30,36 @@ const getAllData = async (req, res) => {
     }
 }
 
-module.exports = { getAllData };
+const getDataById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        let data = await animeModel.findAll({
+            where: {
+                id: id,
+            }
+        })
+
+        // Jika data berhasil ditemukan
+        if (data.length > 0) {
+            res.status(200).json({
+                message: 'Data berhasil ditemukan.',
+                status: 200,
+                data: data[0],
+            })
+        }
+
+        // Jika data gagal ditemukan
+        else {
+            res.status(404).json({
+                message: 'Data gagal ditemukan.',
+                status: 404,
+            })
+        }
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        })
+    }
+}
+
+module.exports = { getAllData, getDataById };
