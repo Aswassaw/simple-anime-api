@@ -13,5 +13,5 @@ app.use("/v1/api/anime", animeRoutes);
 // Menjalankan server
 app.listen(port, () => {
     console.log(chalk`Server berjalan pada port {green ${port}}`);
-    console.log(chalk`Kunjungi: {green http://localhost:${port}}`);
+    console.log(chalk`Kunjungi url berikut: {green http://localhost:${port}}`);
 });

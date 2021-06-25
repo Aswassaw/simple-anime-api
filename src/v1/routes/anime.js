@@ -9,6 +9,8 @@ router.get("/", animeController.getAllData);
 router.get("/:id", animeController.getDataById);
 // Menambahkan data Anime baru ke database
 router.post("/", upload.single('cover'), animeController.insertData);
+// Menambahkan data Anime baru ke database
+router.put("/:id", upload.single('cover'), animeController.updateData);
 // Menghapus data Anime dari database
 router.delete("/:id", animeController.deleteData);
 
