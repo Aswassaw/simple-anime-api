@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { animeModel } = require('../model');
 
 const getAllData = async (req, res) => {
@@ -103,6 +105,8 @@ const updateData = async (req, res) => {
             let cover = null;
             if (req.file) {
                 cover = req.file.path.slice(7);
+                // Menghapus cover lama
+                fs.unlinkSync(path.resolve(__dirname, "../../../public/" + data[0].cover));
             } else {
                 cover = data[0].cover;
             }
@@ -158,6 +162,9 @@ const deleteData = async (req, res) => {
                     id: id,
                 }
             });
+
+            // Menghapus cover
+            fs.unlinkSync(path.resolve(__dirname, "../../../public/" + data[0].cover));
 
             // Jika data berhasil dihapus
             res.status(200).json({
