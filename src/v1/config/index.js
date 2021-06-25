@@ -1,3 +1,4 @@
 const db = require('./database/mysql');
+const upload = require('./upload/upload');
 
-module.exports = { db };
+module.exports = { db, upload };

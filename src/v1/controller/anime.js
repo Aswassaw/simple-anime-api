@@ -62,4 +62,32 @@ const getDataById = async (req, res) => {
     }
 }
 
-module.exports = { getAllData, getDataById };
+const insertData = async (req, res) => {
+    try {
+        const data = await animeModel.create({
+            title: req.body.title,
+            synopsis: req.body.synopsis,
+            type: req.body.type,
+            episodes: req.body.episodes,
+            premiered: req.body.premiered,
+            studios: req.body.studios,
+            genres: req.body.genres,
+            score: req.body.score,
+            source: req.body.source,
+            cover: req.file.path.slice(7),
+        });
+
+        // Jika data berhasil ditambahkan
+        res.status(201).json({
+            message: 'Data berhasil ditambahkan.',
+            status: 201,
+            data,
+        })
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        })
+    }
+}
+
+module.exports = { getAllData, getDataById, insertData };
