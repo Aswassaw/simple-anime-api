@@ -1,10 +1,19 @@
 const express = require("express");
 const { animeRoutes } = require('./v1/routes');
+const auth = require('express-basic-auth');
 const morgan = require('morgan');
 const chalk = require('chalk');
 
 const app = express();
 const port = 7000; // Port
+
+// Menbuat basic-auth
+app.use(auth({
+    users: { 'admin': 'password' },
+    unauthorizedResponse: (req) => {
+        return req.auth ? `Credentials ${req.auth.user} : ${req.auth.password} Rejected` : "Unauthorized";
+    },
+}));
 
 app.use(morgan("dev"));
 app.use(express.static("public")); // Menentukan tempat asset static
