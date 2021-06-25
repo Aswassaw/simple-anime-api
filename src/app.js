@@ -23,6 +23,22 @@ app.use(morgan("dev"));
 app.use(express.static("public")); // Menentukan tempat asset static
 app.use("/v1/api/anime", animeRoutes);
 
+app.use((req, res, next) => {
+    const error = new Error("404 Endpoint Not Found");
+    error.status = 404;
+
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            messages: error.message,
+        },
+    });
+});
+
 // Menjalankan server
 app.listen(port, () => {
     console.log(chalk`Server berjalan pada port {green ${port}}`);
