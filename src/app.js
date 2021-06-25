@@ -1,9 +1,10 @@
 const express = require("express");
-const { animeRoutes } = require('./v1/routes');
+const swagger = require('swagger-ui-express');
 const auth = require('express-basic-auth');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const chalk = require('chalk');
+const { animeRoutes } = require('./v1/routes');
 
 const app = express();
 const port = 7000; // Port
@@ -11,7 +12,11 @@ const port = 7000; // Port
 // Security
 app.use(helmet());
 
-// Menbuat basic-auth
+// Swagger Documentation
+const apiDocumentation = require('./v1_apidocs.json');
+app.use('/v1/api/anime/api-docs', swagger.serve, swagger.setup(apiDocumentation));
+
+// Membuat basic-auth
 app.use(auth({
     users: { 'admin': 'password' },
     unauthorizedResponse: (req) => {
