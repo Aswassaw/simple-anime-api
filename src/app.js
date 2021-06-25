@@ -1,6 +1,7 @@
 const express = require("express");
 const swagger = require('swagger-ui-express');
 const auth = require('express-basic-auth');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const chalk = require('chalk');
@@ -8,6 +9,9 @@ const { animeRoutes } = require('./v1/routes');
 
 const app = express();
 const port = 7000; // Port
+
+// Enabled CORS
+app.use(cors());
 
 // Security
 app.use(helmet());
