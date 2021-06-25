@@ -3,8 +3,13 @@ const router = express.Router();
 const { animeController } = require('../controller');
 const { upload } = require('../config');
 
+// Mendapatkan semua data Anime
 router.get("/", animeController.getAllData);
+// Mendapatkan sebuah data Anime berdasarkan id
 router.get("/:id", animeController.getDataById);
+// Menambahkan data Anime baru ke database
 router.post("/", upload.single('cover'), animeController.insertData);
+// Menghapus data Anime dari database
+router.delete("/:id", animeController.deleteData);
 
 module.exports = router;

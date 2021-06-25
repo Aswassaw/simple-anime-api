@@ -3,7 +3,6 @@ const { animeModel } = require('../model');
 const getAllData = async (req, res) => {
     try {
         let data = await animeModel.findAll({
-            attributes: ['title', 'synopsis', 'type', 'episodes', 'premiered', 'studios', 'genres', 'score', 'source', 'cover'],
             order: [['id', 'asc']],
         });
 
@@ -12,14 +11,14 @@ const getAllData = async (req, res) => {
             res.status(200).json({
                 message: 'Data berhasil ditemukan.',
                 status: 200,
-                data: data,
+                data,
             })
         }
 
-        // Jika data gagal ditemukan
+        // Jika data tidak ditemukan
         else {
             res.status(404).json({
-                message: 'Data gagal ditemukan.',
+                message: 'Data tidak ditemukan.',
                 status: 404,
             })
         }
@@ -35,7 +34,7 @@ const getDataById = async (req, res) => {
         const id = req.params.id;
         let data = await animeModel.findAll({
             where: {
-                id: id,
+                id,
             }
         })
 
@@ -48,10 +47,10 @@ const getDataById = async (req, res) => {
             })
         }
 
-        // Jika data gagal ditemukan
+        // Jika data tidak ditemukan
         else {
             res.status(404).json({
-                message: 'Data gagal ditemukan.',
+                message: 'Data tidak ditemukan.',
                 status: 404,
             })
         }
@@ -64,7 +63,7 @@ const getDataById = async (req, res) => {
 
 const insertData = async (req, res) => {
     try {
-        const data = await animeModel.create({
+        await animeModel.create({
             title: req.body.title,
             synopsis: req.body.synopsis,
             type: req.body.type,
@@ -81,7 +80,6 @@ const insertData = async (req, res) => {
         res.status(201).json({
             message: 'Data berhasil ditambahkan.',
             status: 201,
-            data,
         })
     } catch (error) {
         res.status(404).json({
@@ -90,4 +88,39 @@ const insertData = async (req, res) => {
     }
 }
 
-module.exports = { getAllData, getDataById, insertData };
+const deleteData = async (req, res) => {
+    try {
+        const id = req.params.id;
+        let data = await animeModel.findAll({
+            where: {
+                id,
+            }
+        })
+
+        // Jika data yang akan dihapus ditemukan
+        if (data.length > 0) {
+            await animeModel.destroy({
+                where: {
+                    id,
+                }
+            });
+
+            // Jika data berhasil dihapus
+            res.status(200).json({
+                message: 'Data berhasil dihapus.',
+                status: 200,
+            })
+        } else {
+            res.status(404).json({
+                message: 'Data tidak ditemukan.',
+                status: 404,
+            })
+        }
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        })
+    }
+}
+
+module.exports = { getAllData, getDataById, insertData, deleteData };
