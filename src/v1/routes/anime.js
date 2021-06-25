@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const crypto = require("crypto");
 const { animeController } = require('../controller');
 const { upload } = require('../config');
 
