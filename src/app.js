@@ -1,11 +1,15 @@
 const express = require("express");
 const { animeRoutes } = require('./v1/routes');
 const auth = require('express-basic-auth');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const chalk = require('chalk');
 
 const app = express();
 const port = 7000; // Port
+
+// Security
+app.use(helmet());
 
 // Menbuat basic-auth
 app.use(auth({
