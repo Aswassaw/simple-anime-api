@@ -13,8 +13,8 @@ const port = 7000; // Port
 app.use(helmet());
 
 // Swagger Documentation
-const apiDocumentation = require('./v1_apidocs.json');
-app.use('/v1/api/anime/api-docs', swagger.serve, swagger.setup(apiDocumentation));
+const v1_apiDocumentation = require('./docs/v1_apidocs.json');
+app.use('/v1/api/anime/api-docs', swagger.serve, swagger.setup(v1_apiDocumentation));
 
 // Membuat basic-auth
 app.use(auth({
@@ -26,8 +26,9 @@ app.use(auth({
 
 app.use(morgan("dev"));
 app.use(express.static("public")); // Menentukan tempat asset static
-app.use("/v1/api/anime", animeRoutes);
+app.use("/v1/api/anime", animeRoutes); // Anime Restful API v1
 
+// 404 Handler
 app.use((req, res, next) => {
     const error = new Error("404 Endpoint Not Found");
     error.status = 404;
